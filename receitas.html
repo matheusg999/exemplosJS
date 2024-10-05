@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Catálogo de Receitas</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            background-color: #F7D06E; 
+        }
+        .receitas-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+        .receita-painel {
+            background-color: #F4F1DE;
+            border: 1px solid #D4AC0D;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            width: 250px; 
+            margin-bottom: 20px; 
+        }
+        .receita-imagem {
+            width: 100%; 
+            height: 180px; 
+            object-fit: cover; 
+        }
+    </style>
+</head>
+<body>
+    
+    <main class="container-fluid">
+        <h1 style="color: #000000;">Receitas de Auguste Gusteau</h1>
+        <div class="receitas-container" id="pnlCatalogo">
+            
+        </div>
+    </main>
+
+    <script>
+       
+        const receitas = [
+            {
+                titulo: "Ratatouille",
+                imagem: "ratatouille.png",
+                preparo: "Corte os vegetais em rodelas finas, monte em camadas e asse com molho de tomate por 45 minutos.",
+                ingredientes: ["2 abobrinhas", "1 berinjela", "2 tomates", "1 pimentão vermelho", "2 dentes de alho"]
+            },
+            {
+                titulo: "Quiche Lorraine",
+                imagem: "quiche.png",
+                preparo: "Asse a massa brisée, adicione o recheio de ovos, creme de leite, bacon e queijo. Asse por 30 minutos.",
+                ingredientes: ["200g de bacon", "3 ovos", "200ml de creme de leite", "1 massa brisée (massa podre)", "100g de queijo Gruyère"]
+            },
+            {
+                titulo: "Soufflé de Queijo",
+                imagem: "souffle.png",
+                preparo: "Prepare o roux com manteiga e farinha, adicione leite e queijo. Incorpore as gemas e claras batidas, e leve ao forno.",
+                ingredientes: ["50g de manteiga", "50g de farinha de trigo", "250ml de leite", "100g de queijo Gruyère ralado", "4 ovos"]
+            }
+        ];
+
+        function getListaIngredientes(ingredientes) {
+            let texto = "<ul>";
+            texto += ingredientes.map(ingrediente => `<li>${ingrediente}</li>`).join('');
+            texto += "</ul>";
+            return texto;
+        }
+
+        function getCard(receita) {
+            return `
+                <div class="receita-painel card" style="width: 250px;">
+                    <img class="card-img-top receita-imagem" src="${receita.imagem}" alt="${receita.titulo}">
+                    <div class="card-body">
+                        <h2 class="card-title receita-nome">${receita.titulo}</h2>
+                        <div class="receita-itens card-text">${getListaIngredientes(receita.ingredientes)}</div>
+                        <hr>
+                        <div class="receita-preparo card-text">
+                            <p>${receita.preparo}</p>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        function preencheCatalogo() {
+           
+            const pnlCatalogo = document.getElementById("pnlCatalogo");
+
+            
+            const receitasHTML = receitas.map(receita => getCard(receita)).join('');
+
+           
+            pnlCatalogo.innerHTML = receitasHTML;
+        }
+
+        window.onload = preencheCatalogo;
+    </script>
+    
+</body>
+</html>
